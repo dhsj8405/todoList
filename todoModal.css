@@ -1,0 +1,46 @@
+.todoWrap {
+  cursor: pointer;
+}
+
+.modalWindow {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top:0;
+  left: 0;
+  width:100%;
+  height:100%;
+}
+.modalContent{
+  background-color: white;
+  text-align: center;
+  position: relative;
+  width: 30%;
+  height: 40%;
+  box-shadow: 0 10px 20px;
+}
+.modaloverlay{
+  width:100%;
+  height: 100%;
+  position: absolute;
+}
+.modalHeader{
+  border-bottom: 1px solid #E6E6E6 ;
+  height: 20%;
+  position: relative;
+}
+.modalDay h2{
+  margin: 0;
+}
+.modalDay{
+    height: 100%;
+}
+.modalCloseBtn{
+  position: absolute;
+  top: 3%;
+  left: 93%;
+}
+.modalHidden{
+  display: none;
+}
