@@ -35,16 +35,27 @@ function getDay(){
   var a =0;
   var b =0;
   var c =0;
+  var numToBePrinted = 0;
   for(var j=0 ; j< 35 ; j ++){
+
     var dayOfTheWeek = todosWrap.children[j].querySelector(".DayOfTheWeek");
     var calendarTitleDay = dayOfTheWeek.querySelector("span");
-    if(j < lastMonthLastWeekday + 1){
+
+    if(j % 7 === 0){
+      calendarTitleDay.style.color = "red";
+    }else if(j % 7 === 6){
+      calendarTitleDay.style.color = "blue";
+    }
+    if(j < lastMonthLastWeekday + 1){   //이전달 표시
       calendarTitleDay.innerText = `${lastMonth}/${lastMonthLastDay - lastMonthLastWeekday + a} ${weekday_ch[a]}`;
+      calendarTitleDay.style.opacity = 0.4;
       a++;
-    }else if(j > thisMonthLastDay){
+    }else if(j > thisMonthLastDay){   // 다음달 표시
+      var lastMonth_day = nextMonthFirstDay + b;
       calendarTitleDay.innerText = `${nextMonth}/${nextMonthFirstDay +b} ${weekday_ch[nextMonthFirstWeekday+b]}`;
+      calendarTitleDay.style.opacity = 0.4;
       b++;
-    }else{
+    }else{ // 이번달 표시
       calendarTitleDay.innerText = `${thisMonth}/${thisMonthFirstDay + c} ${weekday_ch[(thisMonthFirstWeekday + c) % 7]}`;
       c++;
     }
