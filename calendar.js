@@ -1,93 +1,166 @@
 const todosWrap = document.querySelector(".todosWrap");
-const todoWrap = todosWrap.querySelector(".todoWrap");
-// const dayOfTheWeek = todoWrap.querySelector(".DayOfTheWeek");
-// const calendarTitleDay = dayOfTheWeek.querySelector("span");
-const weekday_ch = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const topOfTheCalendar_Y_M = document.querySelector(".topOfTheCalendar_Y_M");
+const calendarYear = topOfTheCalendar_Y_M.querySelector("h2");
+const topOfTheCalendar_leftBtn = document.querySelector(".topOfTheCalendar_leftBtn");
+const topOfTheCalendar_rightBtn = document.querySelector(".topOfTheCalendar_rightBtn");
 
-function getDay(){
-  var date = new Date();
-  var month = date.getMonth() ; //월
-  var day = date.getDate() ;    //일
-  var weekday = date.getDay() ; //요일
-  var year = date.getFullYear();//년
-  // calendarTitleDay.innerText = `${month}/${day} ${weekday[a]}`;
-  const calendarLength = todosWrap.children.length;
+const month_ch = ["January","February","March","April","May","June","Jul","August","September","October","November","December"];
 
-  var lastMonthLastDate= new Date(year, month, 0);
-  var thisMonthFirstDate= new Date(year, month, 1);
-  var thisMonthLastDate= new Date(year, month + 1, 0);
-  var nextMonthFirstDate= new Date(year, month + 1, 1);
+var todoWrap = 0;
+var calendarLength = 0;
+var dayCount = 0;
+
+var date = new Date();
+var nowMonth = date.getMonth() + 1  ; //월
+var nowDay = date.getDate() ;    //일
+var nowWeekday = date.getDay() ; //요일
+var nowYear = date.getFullYear();//년
+
+var lastMonthLastDate= new Date(nowYear, nowMonth - 1, 0);
+var thisMonthFirstDate= new Date(nowYear, nowMonth - 1, 1);
+var thisMonthLastDate= new Date(nowYear, nowMonth , 0);
+var nextMonthFirstDate= new Date(nowYear, nowMonth, 1);
+
+var lastMonth = lastMonthLastDate.getMonth() + 1;
+var lastMonthLastDay = lastMonthLastDate.getDate();
+var lastMonthLastWeekday = lastMonthLastDate.getDay();
+var dispLastMonthFirstDay = lastMonthLastDay - lastMonthLastWeekday;
+
+var thisMonth = thisMonthFirstDate.getMonth()+1;
+var thisMonthFirstDay = thisMonthFirstDate.getDate();
+
+var thisMonthLastDay = thisMonthLastDate.getDate();
+
+var nextMonth = nextMonthFirstDate.getMonth()+1;
+var nextMonthFirstDay = nextMonthFirstDate.getDate();
+var nextMonthFirstWeekday = nextMonthFirstDate.getDay();
+
+var dispLastMonthNum = lastMonthLastWeekday + 1;
+var dispThisMonthNum = thisMonthLastDay;
+var dispNextMonthNum = 7 - nextMonthFirstWeekday;
+calendarLength = dispLastMonthNum + dispThisMonthNum + dispNextMonthNum;
+
+function getDaysForConstructCalendar(){
+  var lastMonthLastDate= new Date(nowYear, nowMonth - 1, 0);
+  var thisMonthFirstDate= new Date(nowYear, nowMonth - 1, 1);
+  var thisMonthLastDate= new Date(nowYear, nowMonth , 0);
+  var nextMonthFirstDate= new Date(nowYear, nowMonth, 1);
 
   var lastMonth = lastMonthLastDate.getMonth() + 1;
   var lastMonthLastDay = lastMonthLastDate.getDate();
   var lastMonthLastWeekday = lastMonthLastDate.getDay();
+  var dispLastMonthFirstDay = lastMonthLastDay - lastMonthLastWeekday;
 
   var thisMonth = thisMonthFirstDate.getMonth()+1;
   var thisMonthFirstDay = thisMonthFirstDate.getDate();
-  var thisMonthFirstWeekday = thisMonthFirstDate.getDay();
 
   var thisMonthLastDay = thisMonthLastDate.getDate();
-  var thisMonthLastWeekday = thisMonthLastDate.getDay();
 
   var nextMonth = nextMonthFirstDate.getMonth()+1;
   var nextMonthFirstDay = nextMonthFirstDate.getDate();
   var nextMonthFirstWeekday = nextMonthFirstDate.getDay();
-  var a =0;
-  var b =0;
-  var c =0;
-  var numToBePrinted = 0;
-  for(var j=0 ; j< 35 ; j ++){
 
-    var dayOfTheWeek = todosWrap.children[j].querySelector(".DayOfTheWeek");
-    var calendarTitleDay = dayOfTheWeek.querySelector("span");
+  var dispLastMonthNum = lastMonthLastWeekday + 1;
+  var dispThisMonthNum = thisMonthLastDay;
+  var dispNextMonthNum = 7 - nextMonthFirstWeekday;
+  calendarLength = dispLastMonthNum + dispThisMonthNum + dispNextMonthNum;
+}
 
-    if(j % 7 === 0){
-      calendarTitleDay.style.color = "red";
-    }else if(j % 7 === 6){
-      calendarTitleDay.style.color = "blue";
-    }
-    if(j < lastMonthLastWeekday + 1){   //이전달 표시
-      calendarTitleDay.innerText = `${lastMonth}/${lastMonthLastDay - lastMonthLastWeekday + a} ${weekday_ch[a]}`;
-      calendarTitleDay.style.opacity = 0.4;
-      a++;
-    }else if(j > thisMonthLastDay){   // 다음달 표시
-      var lastMonth_day = nextMonthFirstDay + b;
-      calendarTitleDay.innerText = `${nextMonth}/${nextMonthFirstDay +b} ${weekday_ch[nextMonthFirstWeekday+b]}`;
-      calendarTitleDay.style.opacity = 0.4;
-      b++;
+function makeCalendarform(){
+  for(var i = 0 ; i < calendarLength ; i ++){
+    console.log("1");
+    var create_todoWrap = document.createElement("div");
+    todosWrap.append(create_todoWrap);
+    create_todoWrap.classList.add('todoWrap');
+  }
+  todoWrap = todosWrap.children;
+}
+
+function inputCalendarDay(){
+  calendarYear.innerText = `${nowYear} ${month_ch[nowMonth-1]}`;
+  for(var i = 0 ; i < calendarLength ; i++){
+    var create_todoWrapSmallDay = document.createElement("span");
+    todoWrap[i].append(create_todoWrapSmallDay);
+    holiDayFontColor(i,todoWrap[i].children[0]);
+
+    if(i < lastMonthLastWeekday + 1){   //이전달 표시
+      writeDay(todoWrap[i],dispLastMonthFirstDay + dayCount);
+      todoWrap[i].children[0].classList.add('addOpacity');
+      dayCount++;
+    }else if(i > thisMonthLastDay){   // 다음달 표시
+      checkChangeMonth(i,thisMonthLastDay+1);
+      writeDay(todoWrap[i],nextMonthFirstDay +dayCount);
+      todoWrap[i].children[0].classList.add('addOpacity');
+      dayCount++;
     }else{ // 이번달 표시
-      calendarTitleDay.innerText = `${thisMonth}/${thisMonthFirstDay + c} ${weekday_ch[(thisMonthFirstWeekday + c) % 7]}`;
-      c++;
+      checkChangeMonth(i,lastMonthLastWeekday + 1);
+      writeDay(todoWrap[i],thisMonthFirstDay + dayCount);
+      markToday(todoWrap[i]);
+      dayCount++;
     }
   }
-    //
-    // if(thisMonthFirstWeekday === 0 ){
-    //     for(var i = 0 ; i < thiMonthLastDay ; i++){
-    //       var dayOfTheWeek = todosWrap.children[i].querySelector(".DayOfTheWeek");
-    //       var calendarTitleDay = dayOfTheWeek.querySelector("span");
-    //       calendarTitleDay.innerText = `${thisMonth}/${thisMonthFirstDay + i} ${weekday_ch[(thisMonthFirstWeekday + i) % 7]}`;
-    //     }
-    // }
-    // else{
-    //   for(var i = 0 ; i < lastMonthLastWeekday + 1 ; i++){
-    //     var dayOfTheWeek = todosWrap.children[i].querySelector(".DayOfTheWeek");
-    //     var calendarTitleDay = dayOfTheWeek.querySelector("span");
-    //     calendarTitleDay.innerText = `${lastMonth}/${lastMonthLastDay - lastMonthLastWeekday + i} ${weekday_ch[i]}`;
-    //   }
-    // }
 
-// console.log(lastMonthLastMonth);
-// console.log(thisMonthFirstMonth);
-  //
-  // for(var i = 0; i<calendarLength ; i++){
-
-  //   var dayOfTheWeek = todosWrap.children[i].querySelector(".DayOfTheWeek");
-  //   var calendarTitleDay = dayOfTheWeek.querySelector("span");
-  //   calendarTitleDay.innerText = `${month}/${day} ${weekday[a]}`;
+}
+function holiDayFontColor(i,writeTarget){
+  if(i % 7 === 0){
+    writeTarget.classList.add('SunColor');
+  }else if(i % 7 === 6){
+    writeTarget.classList.add('SatColor');
+  }
+}
+function writeDay(writeTarget,day){
+  var target = writeTarget.querySelector("span")
+  target.innerText =  `${day}`;
+}
+function markToday(writeTarget){
+  if(nowDay === dayCount + 1){
+    var target = writeTarget.querySelector("span")
+    target.classList.add('calendarTodaySmallDay');
+  }
+}
+function checkChangeMonth(nthDay,changeDay){
+  if(nthDay === changeDay){
+    dayCount = 0;
+  }
+}
+function changeMonthBtn(n){
+  // console.log(todosWrap.length);
+  // while(todosWrap.hasChildNodes()){
+  // for(var i = 0 ; i <19 ; i ++){
+  //   todoWrap[i].remove();
   // }
+    // console.log(todoWrap);
+  // }
+  todosWrap.detach();
+  // while(todosWrap.hasChildNodes()){
+  //   todoWrap.remove();
+  // }
+
+  if ( n === 1 && nowMonth === 1){
+    nowYear--;
+    nowMonth = 12;
+  }else if ( n === -1 && nowMonth === 12){
+    nowYear++;
+    nowMonth = 1;
+  }else if(n === 1){
+    nowMonth--;
+  }else{
+    nowMonth++;
+  }
+  getDaysForConstructCalendar();
+  makeCalendar();
+}
+function makeCalendar(){
+  makeCalendarform();
+  inputCalendarDay();
 }
 function init(){
-  getDay();
-  // console.log(todosWrap.children.length);
+  makeCalendar();
+  topOfTheCalendar_leftBtn.addEventListener('click',function(){
+    changeMonthBtn(1)
+  });
+  topOfTheCalendar_rightBtn.addEventListener('click',function(){
+    changeMonthBtn(-1)
+  });
 }
 init();

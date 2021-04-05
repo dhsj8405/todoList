@@ -1,0 +1,77 @@
+
+.myCalendar{
+  height: 100%;
+  width: 80%;
+  border: 1px solid;
+}
+.topOfTheCalendar{
+  width: 100%;
+  height: 10%;
+  background-color: #F2F2F2;
+}
+.topOfTheCalendar_Y_M{
+  height: 60%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+.topOfTheCalendar_leftBtn{
+  text-align: right;
+}
+.topOfTheCalendar_Y_M h2{
+  text-align: center;
+  margin: 0;
+}
+.topOfTheCalendar_rightBtn{
+  text-align: left;
+}
+.topOfTheCalendar_Weekday{
+  height: 40%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  text-align: center;
+  border-top: 1px solid;
+}
+.todosWrap{
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr; */
+  /* justify-content: center; */
+  height: 90%;
+  width: 100%;
+  border-top: 2px solid;
+  background-color: #F2F2F2;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.todoWrap{
+  /* height: 95%; */
+  /* width: 150px; */
+  border : 1px solid gray;
+  background-color: #F2F2F2;
+  padding: 10px 10px;
+}
+/* .todoWrapHeader{
+  margin-bottom: 2px;
+  border-bottom: 1px solid gray;
+  text-align: center;
+  width: 100%;
+  height: 20px;
+} */
+
+
+.calendarTodaySmallDay{
+  border: 1px solid;
+  border-radius: 30%;
+  background-color: red
+  color:white;
+}
+.addOpacity{
+  opacity:0.4
+}
+.SatColor{
+  color:blue;
+}
+.SunColor{
+  color:red;
+}

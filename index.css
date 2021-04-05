@@ -23,6 +23,11 @@ body{
   height: 200px;
   width: 100%;
 } */
+.bodyWrap{
+  width: 100%;
+  height: 700px;
+  display: flex;
+}
 .information{
   width: 20%;
   height: 100%;
@@ -36,33 +41,6 @@ body{
   background-color: #F2F2F2;
   margin-top: 5px;
   /* padding: 5px; */
-}
-.bodyWrap{
-  width: 100%;
-  height: 700px;
-  display: flex;
-}
-.todosWrap{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  /* justify-content: center; */
-  height: 100%;
-  width: 80%;
-}
-.todoWrap{
-  /* height: 95%; */
-  /* width: 150px; */
-  border : 1px solid gray;
-  background-color: #F2F2F2;
-  padding: 10px 10px;
-}
-.DayOfTheWeek{
-  margin-bottom: 2px;
-  border-bottom: 1px solid gray;
-  text-align: center;
-  width: 100%;
-  height: 20px;
 }
 .js-toDoForm{
   display: flex;
